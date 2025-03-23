@@ -1,9 +1,14 @@
 %{
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-int yylex();
+extern int yylex();
 void yyerror(const char *s);
+extern FILE *yyin;
+extern void yy_scan_string(const char *s);
+extern void yy_delete_buffer(void *);
+
 int syntax_error_flag = 0;
 %}
 
@@ -54,11 +59,32 @@ expr:
 
 int main() {
     printf("ARITHMETIC CALCULATOR\n");
-    printf("Enter expr below:\n");
-    while(1){
+
+    const char* test_cases[] = {
+        "3 + 5\n",          // 8
+        "10 - 2\n",         // 8
+        "4 * 7\n",          // 28
+        "8 / 2\n",          // 4
+        "8 / 0\n",          // cannot divided by zero
+        "(3 + 5) * 2\n",    // 16
+        "10 - (2 + 3)\n",   // 5
+        "3 + 5 * 2\n",      // 13
+        "((2 + 3) * 4) / 2\n", // 10
+        "42\n",             // 42
+        "3 + \n",           // syntax error
+        "abc\n",            // unknown character
+    };
+
+    int num_tests = sizeof(test_cases) / sizeof(test_cases[0]);
+
+    for (int i = 0; i < num_tests; i++) {
+        printf("Test %d: %s", i + 1, test_cases[i]);
         syntax_error_flag = 0;
+
+        yyin = fmemopen((void*)test_cases[i], strlen(test_cases[i]), "r");
         yyparse();
     }
+    return 0;
 }
 
 void yyerror(const char *s) {

@@ -21,8 +21,8 @@ Parsing aşamasında Yacc kullanırken girdiler çözümlenir, hata kontrolleri 
 
 ```bash
 #Aşağıdaki komutlar ile kod compile edilir:
-lex calculator.l
-yacc -d calculator.y
+lex calculator.l   #----> lex.yy.c dosyasını oluşturur
+yacc -d calculator.y    #----> y.tab.h ve y.tab.c dosyalarını oluşturur
 gcc lex.yy.c y.tab.c -o calculator
 
 #Aşaığdaki komut ile de program çalıştırılır:

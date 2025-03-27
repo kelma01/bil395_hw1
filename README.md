@@ -1,3 +1,5 @@
+# Kerem Elma, 211101079
+
 # Lex ve Yacc Kullanarak Hesap Makinesi
 
 Bu hesap makinesi programı, Lex ve Yacc kullanılarak implement edilmiştir. Temel aritmetik işlemleri(toplama, çıkarma, çarpma, bölme) destekler. Çalıştırıldığı andan itibaren sürekli kullanıcıdan giriş olarak bir ifade alır ve işlenebiliyorsa cevabını, işlenemiyor ise hata mesajını döner.
